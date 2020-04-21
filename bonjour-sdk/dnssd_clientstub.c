@@ -503,8 +503,8 @@ static DNSServiceErrorType ConnectToServer(DNSServiceRef *ref, DNSServiceFlags f
         if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0) { *ref = NULL; return kDNSServiceErr_ServiceNotRunning; }
     }
     // <rdar://problem/4096913> If the system service is disabled, we only want to try to connect once
-	//if (IsSystemServiceDisabled())
-	//	NumTries = DNSSD_CLIENT_MAXTRIES;
+    if (IsSystemServiceDisabled()) 
+        NumTries = DNSSD_CLIENT_MAXTRIES;
     #endif
 
     sdr = malloc(sizeof(DNSServiceOp));
